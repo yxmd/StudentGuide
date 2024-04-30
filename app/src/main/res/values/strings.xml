@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">student_guide_test</string>
+    <string name="filter">filter</string>
+    <string name="retry">Попробовать снова</string>
+</resources>

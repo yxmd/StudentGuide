@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvAddExamScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:text="Добавление балла экзамена"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/etScoreName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Название предмета"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <EditText
+        android:id="@+id/etScoreValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Набранный балл"
+        android:inputType="number"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"/>
+
+</LinearLayout>

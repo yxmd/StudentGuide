@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:text="Фильтр"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rbCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Город" />
+
+        <Spinner
+            android:id="@+id/sCities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <RadioButton
+            android:id="@+id/rbProgram"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Направление" />
+
+        <Spinner
+            android:id="@+id/sPrograms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/bApply"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#2E8B57"
+        android:textColor="@color/white"
+        android:text="Применить" />
+
+    <Button
+        android:id="@+id/bCancel"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:backgroundTint="#8B0000"
+        android:textColor="@color/white"
+        android:text="Отменить" />
+
+</LinearLayout>
