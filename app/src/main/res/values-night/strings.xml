@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="retry">Попробовать снова</string>
+    <string name="enter_all_lines">Заполните все поля</string>
 </resources>

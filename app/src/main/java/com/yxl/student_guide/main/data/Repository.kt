@@ -1,5 +1,7 @@
-package com.yxl.student_guide.core.data
+package com.yxl.student_guide.main.data
 
+import com.yxl.student_guide.core.data.Api
+import com.yxl.student_guide.core.data.Institute
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

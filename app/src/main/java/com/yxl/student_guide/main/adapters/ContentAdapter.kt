@@ -13,6 +13,8 @@ import com.yxl.student_guide.databinding.ItemInstituteBinding
 
 class ContentAdapter() : RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
 
+    var onClickListener: OnClickListener? = null
+
     inner class ViewHolder(private val binding: ItemInstituteBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(institute: Institute){
@@ -31,6 +33,12 @@ class ContentAdapter() : RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
 
                 }
                 tvTitle.text = institute.name
+
+                ivFav.setOnClickListener {
+                    if (onClickListener != null) {
+                        onClickListener!!.onFavClick(institute.id, institute)
+                    }
+                }
             }
         }
     }
@@ -45,6 +53,13 @@ class ContentAdapter() : RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
         if(differ.currentList.isNotEmpty()){
             holder.bind(differ.currentList[position])
         }
+
+        holder.itemView.setOnClickListener {
+            if (onClickListener != null) {
+                onClickListener!!.onInstituteClick(position, differ.currentList[position])
+            }
+        }
+
     }
 
     override fun getItemCount(): Int {

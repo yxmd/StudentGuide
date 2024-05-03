@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxl.student_guide.R
+import com.yxl.student_guide.core.toScore
 import com.yxl.student_guide.databinding.FragmentProfileBinding
 import com.yxl.student_guide.profile.adapter.ScoreAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,15 +38,15 @@ class ProfileFragment : Fragment() {
         binding.fabAddScore.setOnClickListener { openScoreDialog() }
     }
 
-    private fun setupRecycler(){
+    private fun setupRecycler() {
         binding.rvScores.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = scoreAdapter
         }
 
-        viewModel.scores.observe(viewLifecycleOwner){
-            scoreAdapter.differ.submitList(it)
-            if(it.isNotEmpty()){
+        viewModel.scores.observe(viewLifecycleOwner) {
+            scoreAdapter.differ.submitList(it.map { score -> score.toScore() })
+            if (it.isNotEmpty()) {
                 binding.tvAddScore.text = "Ваши баллы"
             }
         }
@@ -61,11 +63,16 @@ class ProfileFragment : Fragment() {
             builder.setView(dialogLayout)
 
                 .setPositiveButton("Добавить") { _, _ ->
-                    if(scoreName != null && scoreValue != null){
+                    if (scoreName != null && scoreValue != null) {
                         viewModel.addScoreToDb(
                             scoreName.text.toString(),
                             scoreValue.text.toString().toInt()
                         )
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.enter_all_lines), Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
                 .setNegativeButton("Отмена") { dialog, _ ->

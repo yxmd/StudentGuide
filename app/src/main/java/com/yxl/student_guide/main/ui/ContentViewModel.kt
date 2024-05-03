@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yxl.student_guide.core.data.Institute
-import com.yxl.student_guide.core.data.Repository
+import com.yxl.student_guide.main.data.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -49,7 +49,7 @@ class ContentViewModel @Inject constructor(
         }
     }
 
-    private fun addInstituteToDb(){
+    fun addInstituteToDb(institute: Institute){
 
     }
 

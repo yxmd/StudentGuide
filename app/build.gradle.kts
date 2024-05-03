@@ -48,8 +48,6 @@ dependencies {
     val arch_version = "2.1.0"
     val lifecycle_version = "2.6.1"
     val dagger_version = "2.46.1"
-    val timber = "5.0.1"
-    val moshi = "1.14.0"
     val nav_version = "2.6.0"
 
     implementation("androidx.core:core-ktx:1.12.0")
@@ -73,6 +71,10 @@ dependencies {
     implementation ("com.google.dagger:hilt-android:2.48")
     kapt ("com.google.dagger:hilt-android-compiler:2.48")
     kapt ("androidx.hilt:hilt-compiler:1.0.0")
+
+    implementation ("androidx.room:room-runtime:$room_version")
+    implementation ("androidx.room:room-ktx:$room_version")
+    kapt ("androidx.room:room-compiler:$room_version")
 
     implementation ("io.coil-kt:coil:2.6.0")
     implementation("io.coil-kt:coil-svg:2.6.0")
