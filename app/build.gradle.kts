@@ -44,10 +44,7 @@ android {
 dependencies {
 
     val room_version = "2.5.1"
-    val epoxy_version = "4.6.4"
-    val arch_version = "2.1.0"
     val lifecycle_version = "2.6.1"
-    val dagger_version = "2.46.1"
     val nav_version = "2.6.0"
 
     implementation("androidx.core:core-ktx:1.12.0")
