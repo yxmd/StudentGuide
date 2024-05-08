@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yxl.student_guide.R
-import com.yxl.student_guide.core.toScore
+import com.yxl.student_guide.utils.toScore
 import com.yxl.student_guide.databinding.FragmentProfileBinding
 import com.yxl.student_guide.profile.adapter.ScoreAdapter
 import dagger.hilt.android.AndroidEntryPoint

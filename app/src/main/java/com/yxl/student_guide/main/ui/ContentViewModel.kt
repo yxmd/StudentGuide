@@ -5,20 +5,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yxl.student_guide.core.data.Institute
-import com.yxl.student_guide.main.data.Repository
+import com.yxl.student_guide.main.data.MainRepository
+import com.yxl.student_guide.utils.toDBO
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ContentViewModel @Inject constructor(
-    private val repository: Repository
+    private val mainRepository: MainRepository
 ) : ViewModel() {
 
     private val _data = MutableLiveData<List<Institute>>()
     val data: LiveData<List<Institute>> = _data
 
-    //create data class to manage in which requst was an error
+    //create data class to manage in which case was an error
     val showErrorButton = MutableLiveData(false)
 
     init {
@@ -34,7 +36,7 @@ class ContentViewModel @Inject constructor(
 
     private fun getUniversities() = viewModelScope.launch {
         try {
-            _data.postValue(repository.getUniversities())
+            _data.postValue(mainRepository.getUniversities())
         } catch (e: Exception) {
             showErrorButton.postValue(true)
         }
@@ -43,14 +45,16 @@ class ContentViewModel @Inject constructor(
 
     private fun getColleges() = viewModelScope.launch {
         try {
-            _data.postValue(repository.getColleges())
+            _data.postValue(mainRepository.getColleges())
         } catch (e: Exception) {
             showErrorButton.postValue(true)
         }
     }
 
     fun addInstituteToDb(institute: Institute){
-
+        viewModelScope.launch(Dispatchers.IO) {
+            mainRepository.insertInstitute(institute.toDBO())
+        }
     }
 
 }

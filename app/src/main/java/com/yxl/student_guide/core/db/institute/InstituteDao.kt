@@ -13,6 +13,6 @@ interface InstituteDao {
     fun getInstitutes(): Flow<List<InstituteDBO>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addAll(contacts: List<InstituteDBO>)
+    fun insert(institute: InstituteDBO)
 
 }

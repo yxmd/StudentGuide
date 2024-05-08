@@ -13,6 +13,6 @@ interface ScoreDAO {
     fun getAll(): Flow<List<ScoreDBO>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(contacts: ScoreDBO)
+    fun insert(score: ScoreDBO)
 
 }
