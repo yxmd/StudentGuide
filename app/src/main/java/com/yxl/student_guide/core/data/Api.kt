@@ -12,6 +12,6 @@ interface Api {
     suspend fun getColleges(): Response<List<Institute>>
 
     companion object{
-        const val BASE_URL = "http://192.168.100.82:8080"
+        const val BASE_URL = "my_api"
     }
 }

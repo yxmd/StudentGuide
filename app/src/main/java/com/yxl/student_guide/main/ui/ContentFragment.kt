@@ -1,7 +1,7 @@
 package com.yxl.student_guide.main.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.yxl.student_guide.core.data.Institute
 import com.yxl.student_guide.databinding.FragmentContentBinding
 import com.yxl.student_guide.main.adapters.ContentAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,7 +58,6 @@ class ContentFragment : Fragment() {
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.position?.let {
-                    Log.d("contentFragment", "getData")
                     viewModel.getData(it)
                 }
             }
@@ -79,6 +79,30 @@ class ContentFragment : Fragment() {
         viewModel.data.observe(viewLifecycleOwner) {
             adapter.differ.submitList(it)
         }
+
+        adapter.setOnClickListener(object : ContentAdapter.OnClickListener{
+            override fun onLongClick(position: Int, model: Institute) {
+                openAddToFavDialog(model)
+            }
+
+            override fun onInstituteClick(position: Int, model: Institute) {
+
+            }
+        })
+    }
+
+    private fun openAddToFavDialog(institute: Institute) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Добавить в избранное")
+        builder.setMessage("Вы действительно хотите добавить ${institute.name} в избранное?")
+        builder.setPositiveButton("Да") { _, _ ->
+            viewModel.addInstituteToDb(institute)
+        }
+        builder.setNegativeButton("Отменить") { _, _ ->
+
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 
 }

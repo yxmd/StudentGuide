@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomMenu.setOnItemReselectedListener {  }
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(binding.container.id, fragment)
             .commit()

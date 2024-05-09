@@ -5,14 +5,15 @@
 
     <TextView
         android:id="@+id/tvNothingHere"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Добавьте учебное заведение в избранное"
+        android:gravity="center"
+        android:text="@string/add_institute_to_fav"
         android:textSize="16sp"
         android:layout_gravity="center"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tvFavorites"
+        android:id="@+id/rvFavorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
