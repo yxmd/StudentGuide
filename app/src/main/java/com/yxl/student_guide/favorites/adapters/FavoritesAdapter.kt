@@ -1,4 +1,4 @@
-package com.yxl.student_guide.main.adapters
+package com.yxl.student_guide.favorites.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,7 +11,7 @@ import com.yxl.student_guide.core.data.Api
 import com.yxl.student_guide.core.data.Institute
 import com.yxl.student_guide.databinding.ItemInstituteBinding
 
-class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
+class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
 
     private var onClickListener: OnClickListener? = null
 
@@ -47,19 +47,6 @@ class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
         if(differ.currentList.isNotEmpty()){
             holder.bind(differ.currentList[position])
         }
-
-        holder.itemView.setOnClickListener {
-            if (onClickListener != null) {
-                onClickListener!!.onInstituteClick(position, differ.currentList[position])
-            }
-        }
-
-        holder.itemView.setOnLongClickListener {
-            if (onClickListener != null) {
-                onClickListener!!.onLongClick(position, differ.currentList[position])
-            }
-            return@setOnLongClickListener true
-        }
     }
 
     override fun getItemCount(): Int {
@@ -82,7 +69,6 @@ class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
     }
 
     interface OnClickListener{
-        fun onLongClick(position: Int, model: Institute)
         fun onInstituteClick(position: Int, model: Institute)
     }
 }

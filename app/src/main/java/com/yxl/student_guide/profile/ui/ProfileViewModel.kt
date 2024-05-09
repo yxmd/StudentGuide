@@ -1,25 +1,27 @@
 package com.yxl.student_guide.profile.ui
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.yxl.student_guide.profile.data.Score
+import com.yxl.student_guide.core.db.score.ScoreDBO
+import com.yxl.student_guide.profile.data.ProfileRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
+    private val profileRepository: ProfileRepository
+) : ViewModel() {
 
-): ViewModel() {
+    val scores: LiveData<List<ScoreDBO>> = profileRepository.scores.flowOn(Dispatchers.IO)
+        .asLiveData(context = viewModelScope.coroutineContext)
 
-    val scores = MutableLiveData<List<Score>>()
-    private val scoresList = mutableListOf<Score>()
-    private var scoreId = 1
-    fun addScoreToDb(scoreName: String, scoreValue: Int) = viewModelScope.launch {
-        scoresList.add(Score(scoreId, scoreName, scoreValue))
-        scores.postValue(scoresList)
-        scoreId++
+    fun addScoreToDb(scoreName: String, scoreValue: Int) = viewModelScope.launch(Dispatchers.IO) {
+        profileRepository.addScore(scoreName, scoreValue)
     }
 
 }

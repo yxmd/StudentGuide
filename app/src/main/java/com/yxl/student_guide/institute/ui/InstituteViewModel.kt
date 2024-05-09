@@ -8,4 +8,7 @@ import javax.inject.Inject
 class InstituteViewModel @Inject constructor(
 
 ): ViewModel() {
+
+
+
 }
