@@ -37,6 +37,6 @@ fun InstituteDBO.toInstitute(): Institute {
         name = this.name,
         description = this.description,
         img = this.img,
-        logo = this.logo
+        logo = this.logo,
     )
 }

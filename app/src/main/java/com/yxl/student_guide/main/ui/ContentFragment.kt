@@ -2,9 +2,11 @@ package com.yxl.student_guide.main.ui
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,8 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.yxl.student_guide.core.data.Institute
 import com.yxl.student_guide.databinding.FragmentContentBinding
+import com.yxl.student_guide.institute.ui.InstituteFragment
+import com.yxl.student_guide.main.MainActivity
 import com.yxl.student_guide.main.adapters.ContentAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -86,7 +90,8 @@ class ContentFragment : Fragment() {
             }
 
             override fun onInstituteClick(position: Int, model: Institute) {
-
+                Log.d("onInstituteClick", position.toString())
+                (activity as MainActivity).addFragment(InstituteFragment(), bundleOf("type" to "uni", "id" to position))
             }
         })
     }
