@@ -14,7 +14,6 @@
             android:id="@+id/ivPoster"
             android:layout_width="0dp"
             android:layout_height="250dp"
-            android:src="@drawable/mslu"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,11 +23,11 @@
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:gravity="center"
             android:textColor="@color/black"
             android:layout_marginTop="8dp"
-            android:text="Минский государственный лингвистический университет"
+            android:text=""
             app:layout_constraintTop_toBottomOf="@id/ivPoster"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -41,21 +40,71 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:gravity="fill"
-            android:text=" МГЛУ располагает четырьмя студенческими общежитиями. Общежития вуза – особая среда жизнедеятельности молодых людей, где обучающиеся имеют широкие возможности для отдыха, самоподготовки к учебным занятиям, ведения активного образа жизни и участия в общественной и культурно-массовой деятельности.
-          В жилом комплексе «Студенческая деревня» (Московский район г. Минска) размещены два общежития МГЛУ: №1 и №4."
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <TableLayout
+            android:id="@+id/table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvDescription"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Специальность"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:background="@drawable/header_shape"
+                    android:textStyle="bold"
+                    android:paddingVertical="6dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Ф/о"
+                    android:gravity="center"
+                    android:background="@drawable/header_shape"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:paddingVertical="6dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Факультет"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:background="@drawable/header_shape"
+                    android:textStyle="bold"
+                    android:paddingVertical="6dp" />
+
+            </TableRow>
+
+        </TableLayout>
+
         <ProgressBar
-            android:id="@+id/spinner"
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminateTint="@color/purple"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
