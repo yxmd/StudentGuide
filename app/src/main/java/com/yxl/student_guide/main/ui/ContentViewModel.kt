@@ -19,37 +19,42 @@ class ContentViewModel @Inject constructor(
 
     private val _data = MutableLiveData<List<Institute>>()
     val data: LiveData<List<Institute>> = _data
-    private val _filteredData = MutableLiveData<List<Institute>?>()
-    val filteredData: LiveData<List<Institute>?> = _filteredData
     //create data class to manage in which case was an error
     val showErrorButton = MutableLiveData(false)
+    val isLoading = MutableLiveData(false)
+    val tab = MutableLiveData(0)
+    val spinnerCitiesState = MutableLiveData<Int?>(null)
+    val spinnerProgramsState = MutableLiveData<Int?>(null)
 
     init {
-        getData(0)
+        getData()
     }
 
-    fun getData(index: Int) = viewModelScope.launch {
-        when (index) {
+    fun getData() = viewModelScope.launch {
+        when (tab.value) {
             0 -> { getUniversities() }
             1 -> { getColleges() }
         }
     }
 
     private fun getUniversities() = viewModelScope.launch {
+        isLoading.postValue(true)
         try {
             _data.postValue(mainRepository.getUniversities())
         } catch (e: Exception) {
             showErrorButton.postValue(true)
         }
-
+        isLoading.postValue(false)
     }
 
     private fun getColleges() = viewModelScope.launch {
+        isLoading.postValue(true)
         try {
             _data.postValue(mainRepository.getColleges())
         } catch (e: Exception) {
             showErrorButton.postValue(true)
         }
+        isLoading.postValue(false)
     }
 
     fun addInstituteToDb(institute: Institute){
@@ -59,12 +64,25 @@ class ContentViewModel @Inject constructor(
     }
 
     fun searchInstitutes(query: String) {
+        isLoading.postValue(true)
         viewModelScope.launch {
             val result = _data.value?.filter { institute ->
                 institute.name.contains(query, ignoreCase = true)
             }
-            _filteredData.postValue(result)
+            _data.postValue(result ?: emptyList())
         }
+        isLoading.postValue(false)
+    }
+
+    fun filterInstitutes(arg: String){
+        isLoading.postValue(true)
+        viewModelScope.launch {
+            val result = _data.value?.filter { institute ->
+                institute.city == arg
+            }
+            _data.postValue(result ?: emptyList())
+        }
+        isLoading.postValue(false)
     }
 
 }

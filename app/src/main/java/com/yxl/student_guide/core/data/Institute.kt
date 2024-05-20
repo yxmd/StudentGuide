@@ -9,6 +9,8 @@ data class Institute(
     val name:String,
     @SerializedName("description")
     val description: String,
+    @SerializedName("city")
+    val city: String,
     @SerializedName("img")
     val img: String?,
     @SerializedName("logo")
