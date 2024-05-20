@@ -19,7 +19,8 @@ class ContentViewModel @Inject constructor(
 
     private val _data = MutableLiveData<List<Institute>>()
     val data: LiveData<List<Institute>> = _data
-
+    private val _filteredData = MutableLiveData<List<Institute>?>()
+    val filteredData: LiveData<List<Institute>?> = _filteredData
     //create data class to manage in which case was an error
     val showErrorButton = MutableLiveData(false)
 
@@ -54,6 +55,15 @@ class ContentViewModel @Inject constructor(
     fun addInstituteToDb(institute: Institute){
         viewModelScope.launch(Dispatchers.IO) {
             mainRepository.insertInstitute(institute.toDBO())
+        }
+    }
+
+    fun searchInstitutes(query: String) {
+        viewModelScope.launch {
+            val result = _data.value?.filter { institute ->
+                institute.name.contains(query, ignoreCase = true)
+            }
+            _filteredData.postValue(result)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.yxl.student_guide.main.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -84,5 +85,12 @@ class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
     interface OnClickListener{
         fun onLongClick(position: Int, model: Institute)
         fun onInstituteClick(position: Int, model: Institute)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateList(newList: List<Institute>) {
+        differ.submitList(newList) {
+            notifyDataSetChanged()
+        }
     }
 }

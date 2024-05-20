@@ -2,10 +2,10 @@ package com.yxl.student_guide.main.ui
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -40,6 +40,7 @@ class ContentFragment : Fragment() {
 
         setUpRecycler()
         setUpTabLayout()
+        setUpSearching()
         binding.bFilter.setOnClickListener {
             BottomSheetFilterFragment().show(parentFragmentManager, "BottomSheetFilterFragment")
         }
@@ -90,8 +91,28 @@ class ContentFragment : Fragment() {
             }
 
             override fun onInstituteClick(position: Int, model: Institute) {
-                Log.d("onInstituteClick", position.toString())
-                (activity as MainActivity).addFragment(InstituteFragment(), bundleOf("type" to "uni", "id" to position))
+                (activity as MainActivity).addFragment(InstituteFragment(), bundleOf("type" to "uni", "id" to model.id))
+            }
+        })
+    }
+
+    private fun setUpSearching(){
+        binding.svSearch.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                query?.let {
+                    viewModel.searchInstitutes(it)
+                }
+
+                viewModel.filteredData.observe(viewLifecycleOwner){
+                    if (it != null){
+                        adapter.updateList(it)
+                    }
+                }
+                return false
             }
         })
     }
