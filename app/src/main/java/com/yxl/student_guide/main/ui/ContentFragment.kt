@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,6 +42,11 @@ class ContentFragment : Fragment() {
         setUpRecycler()
         setUpTabLayout()
         setUpSearching()
+
+        viewModel.isLoading.observe(viewLifecycleOwner){
+            binding.progressBar.isVisible = it
+            binding.rvContent.isVisible = !it
+        }
         binding.bFilter.setOnClickListener {
             BottomSheetFilterFragment().show(parentFragmentManager, "BottomSheetFilterFragment")
         }
@@ -51,7 +57,7 @@ class ContentFragment : Fragment() {
             }
         }
         binding.bRetry.setOnClickListener {
-            viewModel.getData(0)
+            viewModel.getData()
             binding.bRetry.visibility = View.GONE
             viewModel.showErrorButton.postValue(false)
         }
@@ -63,7 +69,9 @@ class ContentFragment : Fragment() {
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.position?.let {
-                    viewModel.getData(it)
+
+                    viewModel.tab.value = it
+                    viewModel.getData()
                 }
             }
 
@@ -104,14 +112,13 @@ class ContentFragment : Fragment() {
 
             override fun onQueryTextChange(query: String?): Boolean {
                 query?.let {
-                    viewModel.searchInstitutes(it)
-                }
-
-                viewModel.filteredData.observe(viewLifecycleOwner){
-                    if (it != null){
-                        adapter.updateList(it)
+                    if(it.isNotBlank()){
+                        viewModel.searchInstitutes(query)
+                    }else{
+                        viewModel.getData()
                     }
                 }
+
                 return false
             }
         })
