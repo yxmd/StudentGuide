@@ -89,8 +89,8 @@ class ContentFragment : Fragment() {
         binding.rvContent.layoutManager = LinearLayoutManager(requireContext())
         binding.rvContent.adapter = adapter
 
-        viewModel.data.observe(viewLifecycleOwner) {
-            adapter.differ.submitList(it)
+        viewModel.data.observe(viewLifecycleOwner){ institutes ->
+            adapter.updateList(institutes)
         }
 
         adapter.setOnClickListener(object : ContentAdapter.OnClickListener{
