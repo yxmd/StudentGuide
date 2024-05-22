@@ -28,7 +28,8 @@ fun Institute.toDBO(): InstituteDBO {
         description = this.description,
         city = this.city,
         img = this.img,
-        logo = this.logo
+        logo = this.logo,
+        shortName = this.shortName,
     )
 }
 
@@ -40,5 +41,6 @@ fun InstituteDBO.toInstitute(): Institute {
         city = this.city,
         img = this.img,
         logo = this.logo,
+        shortName = this.shortName,
     )
 }
