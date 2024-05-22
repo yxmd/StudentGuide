@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
 import com.yxl.student_guide.R
-import com.yxl.student_guide.core.data.Api
 import com.yxl.student_guide.databinding.FragmentInstituteBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,7 +36,7 @@ class InstituteFragment : Fragment() {
                 viewModel.getUniversityInfo(arguments?.getInt("id")!!)
                 viewModel.university.observe(viewLifecycleOwner) {
                     binding.apply {
-                        ivPoster.load(Api.BASE_URL + "/" + it.img)
+                        ivPoster.load(it.img)
                         tvTitle.text = it.name
                         tvDescription.text = it.description
                         table.addView(createRow("Автоматизация технологических процессов и производств", "дневная", "Электросвязи"))

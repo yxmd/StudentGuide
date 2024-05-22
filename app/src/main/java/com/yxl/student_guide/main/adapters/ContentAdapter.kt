@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.decode.SvgDecoder
 import coil.load
-import com.yxl.student_guide.core.data.Api
 import com.yxl.student_guide.core.data.Institute
 import com.yxl.student_guide.databinding.ItemInstituteBinding
 
@@ -21,15 +20,15 @@ class ContentAdapter : RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
         fun bind(institute: Institute){
             binding.apply {
                 if(institute.img != null ){
-                    ivPoster.load(Api.BASE_URL + "/"  + institute.img)
+                    ivPoster.load(institute.img)
                 }
                 if(institute.logo != null){
                     if(institute.logo.contains("svg")){
-                        ivLogo.load(Api.BASE_URL + "/" + institute.logo){
+                        ivLogo.load(institute.logo){
                             decoderFactory { result, options, _ -> SvgDecoder(result.source, options) }
                         }
                     }else{
-                        ivLogo.load(Api.BASE_URL + "/" + institute.logo)
+                        ivLogo.load(institute.logo)
                     }
 
                 }

@@ -8,8 +8,9 @@ data class InstituteDBO(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val name:String,
-    val description: String,
+    val description: String?,
     val city: String,
     val img: String?,
     val logo: String?,
+    val shortName: String,
 )

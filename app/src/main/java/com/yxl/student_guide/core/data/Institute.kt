@@ -8,7 +8,7 @@ data class Institute(
     @SerializedName("name")
     val name:String,
     @SerializedName("description")
-    val description: String,
+    val description: String?,
     @SerializedName("city")
     val city: String,
     @SerializedName("img")
@@ -19,6 +19,8 @@ data class Institute(
     val faculties: List<Faculty>? = null,
     @SerializedName("specialties")
     val specialties: List<Specialty>? = null,
+    @SerializedName("shortName")
+    val shortName: String,
 )
 
 data class Faculty(
