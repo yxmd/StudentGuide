@@ -24,7 +24,6 @@ class ContentViewModel @Inject constructor(
     val isLoading = MutableLiveData(false)
     val tab = MutableLiveData(0)
     val spinnerCitiesState = MutableLiveData<Int?>(null)
-    val spinnerProgramsState = MutableLiveData<Int?>(null)
 
     init {
         getData()
@@ -67,7 +66,7 @@ class ContentViewModel @Inject constructor(
         isLoading.postValue(true)
         viewModelScope.launch {
             val result = _data.value?.filter { institute ->
-                institute.name.contains(query, ignoreCase = true)
+                institute.name.contains(query, ignoreCase = true) || institute.shortName.contains(query, ignoreCase = true)
             }
             _data.postValue(result ?: emptyList())
         }

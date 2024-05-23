@@ -32,9 +32,9 @@ class InstituteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         when (arguments?.getString("type") ?: "null") {
-            "uni" -> {
+            "university" -> {
                 viewModel.getUniversityInfo(arguments?.getInt("id")!!)
-                viewModel.university.observe(viewLifecycleOwner) {
+                viewModel.institute.observe(viewLifecycleOwner) {
                     binding.apply {
                         ivPoster.load(it.img)
                         tvTitle.text = it.name
@@ -48,8 +48,20 @@ class InstituteFragment : Fragment() {
                 }
             }
 
-            "cl" -> {
+            "college" -> {
                 viewModel.getCollegeInfo(arguments?.getInt("id")!!)
+                viewModel.institute.observe(viewLifecycleOwner) {
+                    binding.apply {
+                        ivPoster.load(it.img)
+                        tvTitle.text = it.name
+                        tvDescription.text = it.description
+                        table.addView(createRow("Автоматизация технологических процессов и производств", "дневная", "Электросвязи"))
+                        table.addView(createRow("Системы сети инфокоммуникаций", "заочная", "Электросвязи"))
+                        table.addView(createRow("Автоматизация технологических процессов и производств", "дневная", "Инжиниринга и технологий связи"))
+                        table.addView(createRow("Автоматизация технологических процессов и производств", "дневная", "Электросвязи"))
+                        table.addView(createRow("Автоматизация технологических процессов и производств", "дневная", "Электросвязи"))
+                    }
+                }
             }
 
             else -> {

@@ -69,9 +69,11 @@ class ContentFragment : Fragment() {
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.position?.let {
-
                     viewModel.tab.value = it
                     viewModel.getData()
+                    viewModel.spinnerCitiesState.value = null
+                    binding.svSearch.setQuery("", false)
+                    binding.svSearch.clearFocus()
                 }
             }
 
@@ -99,7 +101,7 @@ class ContentFragment : Fragment() {
             }
 
             override fun onInstituteClick(position: Int, model: Institute) {
-                (activity as MainActivity).addFragment(InstituteFragment(), bundleOf("type" to "uni", "id" to model.id))
+                (activity as MainActivity).addFragment(InstituteFragment(), bundleOf("type" to model.type, "id" to model.id))
             }
         })
     }

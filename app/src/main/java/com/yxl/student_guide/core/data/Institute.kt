@@ -21,6 +21,8 @@ data class Institute(
     val specialties: List<Specialty>? = null,
     @SerializedName("shortName")
     val shortName: String,
+    @SerializedName("type")
+    val type: String,
 )
 
 data class Faculty(
