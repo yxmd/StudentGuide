@@ -2,4 +2,7 @@
 <resources>
     <string name="retry">Попробовать снова</string>
     <string name="enter_all_lines">Заполните все поля</string>
+    <string name="city">Город</string>
+    <string name="accept">Применить</string>
+    <string name="cancel">Отменить</string>
 </resources>

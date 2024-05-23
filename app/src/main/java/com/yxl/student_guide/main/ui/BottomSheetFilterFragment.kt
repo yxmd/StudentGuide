@@ -17,7 +17,6 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentFilterBinding
     private val viewModel: ContentViewModel by activityViewModels()
 
-    private val programs = listOf("Информационные технологии", "Медицина", "Филология")
     private val cities = listOf("Минск", "Брест", "Витебск", "Гомель", "Гродно", "Могилев")
 
     override fun onCreateView(
@@ -40,28 +39,19 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
                     binding.sCities.visibility = View.VISIBLE
                     setupSpinner(binding.sCities, cities)
                 }
-                binding.rbProgram.id -> {
-                    binding.sPrograms.visibility = View.VISIBLE
-                    setupSpinner(binding.sPrograms, programs)
-                }
             }
         }
 
         binding.bApply.setOnClickListener {
             if(binding.rbCity.isChecked){
                 viewModel.spinnerCitiesState.value = binding.sCities.selectedItemPosition
-                viewModel.spinnerProgramsState.value = null
                 viewModel.filterInstitutes(binding.sCities.selectedItem.toString())
-            }else if(binding.rbProgram.isSelected){
-                viewModel.spinnerProgramsState.value = binding.sPrograms.selectedItemPosition
-                viewModel.spinnerCitiesState.value = null
-                viewModel.filterInstitutes(binding.sPrograms.selectedItem.toString())
             }
             dismiss()
         }
 
+
         binding.bCancel.setOnClickListener {
-            viewModel.spinnerProgramsState.value = null
             viewModel.spinnerCitiesState.value = null
             viewModel.getData()
             dismiss()
@@ -76,12 +66,7 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
                 binding.rbCity.isChecked = true
                 binding.sCities.setSelection(it)
             }
-        }
-        viewModel.spinnerProgramsState.observe(viewLifecycleOwner){
-            if(it != null){
-                binding.rbProgram.isChecked = true
-                binding.sPrograms.setSelection(it)
-            }
+            binding.bCancel.isEnabled = it != null
         }
     }
 

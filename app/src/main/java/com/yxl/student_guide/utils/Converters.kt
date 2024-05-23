@@ -13,14 +13,6 @@ fun ScoreDBO.toScore(): Score {
     )
 }
 
-fun Score.toDBO(): ScoreDBO {
-    return ScoreDBO(
-        id = this.id,
-        name = this.name,
-        value = this.value
-    )
-}
-
 fun Institute.toDBO(): InstituteDBO {
     return InstituteDBO(
         id = this.id,
@@ -30,6 +22,7 @@ fun Institute.toDBO(): InstituteDBO {
         img = this.img,
         logo = this.logo,
         shortName = this.shortName,
+        type = this.type,
     )
 }
 
@@ -42,5 +35,6 @@ fun InstituteDBO.toInstitute(): Institute {
         img = this.img,
         logo = this.logo,
         shortName = this.shortName,
+        type = this.type,
     )
 }

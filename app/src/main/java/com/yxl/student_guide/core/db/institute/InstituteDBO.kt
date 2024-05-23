@@ -13,4 +13,5 @@ data class InstituteDBO(
     val img: String?,
     val logo: String?,
     val shortName: String,
+    val type: String,
 )

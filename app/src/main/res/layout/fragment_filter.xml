@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/tvTitle"
-        android:text="Фильтр"
+        android:text="@string/filter"
         android:gravity="center"
         android:textSize="22sp"
         android:layout_width="match_parent"
@@ -22,22 +22,10 @@
             android:id="@+id/rbCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Город" />
+            android:text="@string/city" />
 
         <Spinner
             android:id="@+id/sCities"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
-
-        <RadioButton
-            android:id="@+id/rbProgram"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Направление" />
-
-        <Spinner
-            android:id="@+id/sPrograms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"/>
@@ -51,7 +39,7 @@
         android:layout_marginTop="8dp"
         android:backgroundTint="#2E8B57"
         android:textColor="@color/white"
-        android:text="Применить" />
+        android:text="@string/accept" />
 
     <Button
         android:id="@+id/bCancel"
@@ -59,6 +47,6 @@
         android:layout_height="40dp"
         android:backgroundTint="#8B0000"
         android:textColor="@color/white"
-        android:text="Отменить" />
+        android:text="@string/cancel" />
 
 </LinearLayout>

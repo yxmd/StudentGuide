@@ -15,23 +15,20 @@ class InstituteViewModel @Inject constructor(
     private val repository: InstituteRepository
 ): ViewModel() {
 
-    private val _college = MutableLiveData<Institute>()
-    val college: LiveData<Institute> = _college
-
-    private val _university = MutableLiveData<Institute>()
-    val university: LiveData<Institute> = _university
+    private val _institute = MutableLiveData<Institute>()
+    val institute: LiveData<Institute> = _institute
 
     fun getUniversityInfo(id: Int){
         viewModelScope.launch {
             val university = repository.getUniversityInfo(id)
-            _university.postValue(university)
+            _institute.postValue(university)
         }
     }
 
     fun getCollegeInfo(id: Int){
         viewModelScope.launch {
             val college = repository.getCollegeInfo(id)
-            _college.postValue(college)
+            _institute.postValue(college)
         }
     }
 
