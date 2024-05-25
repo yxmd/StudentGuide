@@ -10,13 +10,17 @@ import com.yxl.student_guide.profile.data.Score
 
 class ScoreAdapter() : RecyclerView.Adapter<ScoreAdapter.ViewHolder>() {
 
+    private var onClickListener: OnClickListener? = null
+
     inner class ViewHolder(private val binding: ItemScoreBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(score: Score){
+        fun bind(score: Score, position: Int){
             binding.apply {
-                tvScoreId.text = score.id.toString()
-                tvScoreName.text = score.name
-                tvScoreValue.text = score.value.toString()
+                tvSubName.text = score.name
+                tvSubValue.text = score.value.toString()
+                ivDelete.setOnClickListener {
+                    onClickListener?.onDeleteClick(position, score)
+                }
             }
         }
     }
@@ -29,7 +33,7 @@ class ScoreAdapter() : RecyclerView.Adapter<ScoreAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(differ.currentList.isNotEmpty()){
-            holder.bind(differ.currentList[position])
+            holder.bind(differ.currentList[position], position)
         }
     }
 
@@ -47,5 +51,13 @@ class ScoreAdapter() : RecyclerView.Adapter<ScoreAdapter.ViewHolder>() {
         }
     }
     val differ = AsyncListDiffer(this, differCallBack)
+
+    fun setOnClickListener(onClickListener: OnClickListener) {
+        this.onClickListener = onClickListener
+    }
+
+    interface OnClickListener{
+        fun onDeleteClick(position: Int, model: Score)
+    }
 
 }

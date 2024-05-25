@@ -1,6 +1,7 @@
 package com.yxl.student_guide.core.db.score
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -14,5 +15,8 @@ interface ScoreDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(score: ScoreDBO)
+
+    @Delete
+    fun deleteScore(score: ScoreDBO)
 
 }

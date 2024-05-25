@@ -32,7 +32,7 @@ object MainModule {
             context,
             InstituteDatabase::class.java,
             InstituteDatabase.DATABASE_NAME
-        ).build()
+        ).createFromAsset("database/student_guide.db").build()
     }
 
     @Singleton
@@ -42,5 +42,9 @@ object MainModule {
     @Singleton
     @Provides
     fun provideScoreDao(db: InstituteDatabase) = db.ScoreDao()
+
+    @Singleton
+    @Provides
+    fun provideSubjectDao(db: InstituteDatabase) = db.SubjectDao()
 
 }
