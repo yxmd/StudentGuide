@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/mslu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -40,7 +39,6 @@
             android:layout_height="70dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
-            android:src="@drawable/logo_mslu"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivPoster" />
 

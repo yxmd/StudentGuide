@@ -7,4 +7,7 @@
     <string name="city">Город</string>
     <string name="accept">Применить</string>
     <string name="cancel">Отменить</string>
+    <string name="choose_subject">Выберите предмет</string>
+    <string name="ur_exam_score">Ваш балл</string>
+    <string name="adding_exam_score">Добавление балла экзамена</string>
 </resources>
