@@ -60,6 +60,11 @@ class InstituteFragment : Fragment() {
                         tvDescription.text = it.description
                         setupDescriptionToggle()
                     }
+                    if(it.specialities != null){
+                        for (s in it.specialities){
+                            binding.table.addView(createRow(s.name, s.budget, s.paid))
+                        }
+                    }
                 }
             }
 
@@ -71,6 +76,11 @@ class InstituteFragment : Fragment() {
                         tvTitle.text = it.name
                         tvDescription.text = it.description
                         setupDescriptionToggle()
+                    }
+                    if(it.specialities != null){
+                        for (s in it.specialities){
+                            binding.table.addView(createRow(s.name, s.budget, s.paid))
+                        }
                     }
                 }
             }
@@ -122,7 +132,6 @@ class InstituteFragment : Fragment() {
         binding.tvDescription.post {
             collapsedHeight = binding.tvDescription.height
 
-            // Measure expanded height
             binding.tvDescription.maxLines = Integer.MAX_VALUE
             binding.tvDescription.measure(
                 View.MeasureSpec.makeMeasureSpec(binding.tvDescription.width, View.MeasureSpec.EXACTLY),
@@ -130,7 +139,6 @@ class InstituteFragment : Fragment() {
             )
             expandedHeight = binding.tvDescription.measuredHeight
 
-            // Measure half height
             val halfLineCount = (binding.tvDescription.lineCount / 2).coerceAtLeast(1)
             binding.tvDescription.maxLines = halfLineCount
             binding.tvDescription.measure(
@@ -138,8 +146,6 @@ class InstituteFragment : Fragment() {
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             )
             halfHeight = binding.tvDescription.measuredHeight
-
-            // Set initial state to half content
             binding.tvDescription.height = halfHeight
 
             binding.tvDescription.setOnClickListener {
@@ -187,12 +193,12 @@ class InstituteFragment : Fragment() {
         super.onStart()
     }
 
-    private fun createRow(specialty: String, form: String, faculty: String): TableRow {
+    private fun createRow(specialty: String, budget: String, paid: String): TableRow {
         val row =
             LayoutInflater.from(requireContext()).inflate(R.layout.item_table_row, null) as TableRow
-        row.findViewById<TextView>(R.id.tvSpecialty).text = specialty
-        row.findViewById<TextView>(R.id.tvForm).text = form
-        row.findViewById<TextView>(R.id.tvFaculty).text = faculty
+        row.findViewById<TextView>(R.id.tvName).text = specialty
+        row.findViewById<TextView>(R.id.tvBudget).text = budget
+        row.findViewById<TextView>(R.id.tvPaid).text = paid
 
         return row
     }
