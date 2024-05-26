@@ -15,23 +15,12 @@ data class Institute(
     val img: String?,
     @SerializedName("logo")
     val logo: String?,
-    @SerializedName("faculties")
-    val faculties: List<Faculty>? = null,
-    @SerializedName("specialties")
-    val specialties: List<Specialty>? = null,
+    @SerializedName("specialities")
+    val specialities: List<Specialty>? = null,
     @SerializedName("shortName")
     val shortName: String,
     @SerializedName("type")
     val type: String,
-)
-
-data class Faculty(
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("name")
-    val name:String,
-    @SerializedName("universityId")
-    val universityId: Int,
 )
 
 data class Specialty(
@@ -39,8 +28,12 @@ data class Specialty(
     val id: Int,
     @SerializedName("name")
     val name:String,
-    @SerializedName("facultyId")
-    val facultyId: Int,
+    @SerializedName("budget")
+    val budget:String,
+    @SerializedName("paid")
+    val paid:String,
+    @SerializedName("universityId")
+    val universityId: Int,
     @SerializedName("collegeId")
     val collegeId: String,
 )
