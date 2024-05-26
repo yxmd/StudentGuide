@@ -12,11 +12,11 @@ interface ScoreDAO {
 
     @Query("SELECT * FROM scores")
     fun getAll(): Flow<List<ScoreDBO>>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(score: ScoreDBO)
-
     @Delete
     fun deleteScore(score: ScoreDBO)
+    @Query("SELECT COALESCE(SUM(value), 0) FROM scores")
+    fun getTotalScore(): Flow<Int>
 
 }

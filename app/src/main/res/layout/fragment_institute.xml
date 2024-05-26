@@ -23,35 +23,49 @@
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:gravity="center"
-            android:textColor="@color/black"
             android:layout_marginTop="8dp"
+            android:gravity="center"
             android:text=""
-            app:layout_constraintTop_toBottomOf="@id/ivPoster"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/ivPoster" />
 
         <TextView
             android:id="@+id/tvDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:gravity="fill"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            android:maxLines="10"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+        <com.yandex.mapkit.mapview.MapView
+            android:id="@+id/mapView"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDescription" />
 
         <TableLayout
             android:id="@+id/table"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tvDescription"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mapView">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -62,34 +76,34 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Специальность"
-                    android:gravity="center"
-                    android:textSize="14sp"
                     android:background="@drawable/header_shape"
-                    android:textStyle="bold"
-                    android:paddingVertical="6dp" />
+                    android:gravity="center"
+                    android:paddingVertical="6dp"
+                    android:text="Специальность"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Ф/о"
-                    android:gravity="center"
                     android:background="@drawable/header_shape"
+                    android:gravity="center"
+                    android:paddingVertical="6dp"
+                    android:text="Ф/о"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:paddingVertical="6dp" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Факультет"
-                    android:gravity="center"
-                    android:textSize="14sp"
                     android:background="@drawable/header_shape"
-                    android:textStyle="bold"
-                    android:paddingVertical="6dp" />
+                    android:gravity="center"
+                    android:paddingVertical="6dp"
+                    android:text="Факультет"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
             </TableRow>
 
@@ -100,11 +114,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminateTint="@color/purple"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

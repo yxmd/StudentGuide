@@ -3,6 +3,7 @@ package com.yxl.student_guide.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.yandex.mapkit.MapKitFactory
 import com.yxl.student_guide.R
 import com.yxl.student_guide.databinding.ActivityMainBinding
 import com.yxl.student_guide.favorites.ui.FavoritesFragment
@@ -14,10 +15,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        MapKitFactory.initialize(this)
         setContentView(binding.root)
 
         if (savedInstanceState == null) {
@@ -25,7 +26,6 @@ class MainActivity : AppCompatActivity() {
                 .replace(binding.container.id, ContentFragment())
                 .commitAllowingStateLoss()
         }
-
         binding.bottomMenu.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.itemMain -> {
