@@ -18,6 +18,7 @@ class ProfileRepository @Inject constructor(
 
     val scores: Flow<List<ScoreDBO>> = scoreDAO.getAll()
     val subjects: Flow<List<SubjectDBO>> = subjectDAO.getAll()
+    val totalScore: Flow<Int> = scoreDAO.getTotalScore()
 
     suspend fun addScore(scoreName: String, scoreValue: Int){
         withContext(Dispatchers.IO){

@@ -55,9 +55,9 @@ class ProfileFragment : Fragment() {
 
         viewModel.scores.observe(viewLifecycleOwner) {
             scoreAdapter.differ.submitList(it.map { score -> score.toScore() })
-            if (it.isNotEmpty()) {
-                binding.tvAddScore.text = "Ваши баллы"
-            }
+        }
+        viewModel.totalScore.observe(viewLifecycleOwner){
+            binding.tvAddScore.text = "Итоговый балл: $it"
         }
         scoreAdapter.setOnClickListener(object  : ScoreAdapter.OnClickListener{
             override fun onDeleteClick(position: Int, model: Score) {

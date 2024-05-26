@@ -24,9 +24,10 @@ class ProfileViewModel @Inject constructor(
 
     val scores: LiveData<List<ScoreDBO>> = profileRepository.scores.flowOn(Dispatchers.IO)
         .asLiveData(context = viewModelScope.coroutineContext)
-
     val subjects: LiveData<List<Subject>> = profileRepository.subjects.flowOn(Dispatchers.IO).map {
         it.map { sub -> sub.toSubject() } }.asLiveData(context = viewModelScope.coroutineContext)
+    val totalScore: LiveData<Int> = profileRepository.totalScore.flowOn(Dispatchers.IO)
+        .asLiveData(context = viewModelScope.coroutineContext)
 
     fun addScoreToDb(scoreName: String, scoreValue: Int) = viewModelScope.launch(Dispatchers.IO) {
         profileRepository.addScore(scoreName, scoreValue)
