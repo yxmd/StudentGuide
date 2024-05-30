@@ -9,6 +9,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
@@ -26,6 +27,7 @@ import com.yandex.mapkit.search.Session.SearchListener
 import com.yandex.runtime.image.ImageProvider
 import com.yxl.student_guide.R
 import com.yxl.student_guide.databinding.FragmentInstituteBinding
+import com.yxl.student_guide.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,82 +52,77 @@ class InstituteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        when (arguments?.getString("type") ?: "null") {
-            "university" -> {
-                viewModel.getUniversityInfo(arguments?.getInt("id")!!)
-                viewModel.institute.observe(viewLifecycleOwner) {
-                    binding.apply {
-                        ivPoster.load(it.img)
-                        tvTitle.text = it.name
-                        tvDescription.text = it.description
-                        setupDescriptionToggle()
-                    }
-                    if(it.specialities != null){
-                        for (s in it.specialities){
-                            binding.table.addView(createRow(s.name, s.budget, s.paid))
-                        }
-                    }
-                }
-            }
+        val type = arguments?.getString("type") ?: "null"
+        val id = arguments?.getInt("id") ?: -1
+        if (id == -1) {
+            Toast.makeText(requireContext(), "Invalid ID", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-            "college" -> {
-                viewModel.getCollegeInfo(arguments?.getInt("id")!!)
-                viewModel.institute.observe(viewLifecycleOwner) {
-                    binding.apply {
-                        ivPoster.load(it.img)
-                        tvTitle.text = it.name
-                        tvDescription.text = it.description
-                        setupDescriptionToggle()
-                    }
-                    if(it.specialities != null){
-                        for (s in it.specialities){
-                            binding.table.addView(createRow(s.name, s.budget, s.paid))
-                        }
-                    }
-                }
-            }
-
+        when (type) {
+            "university" -> viewModel.getUniversityInfo(id)
+            "college" -> viewModel.getCollegeInfo(id)
             else -> {
                 Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()
+                return
             }
         }
 
-        val searchOptions = SearchOptions().apply {
-            searchTypes = SearchType.GEO.value
-            resultPageSize = 32
-        }
-
-        val searchSessionListener = object : SearchListener {
-            override fun onSearchResponse(response: Response) {
-                val mapObjects: MapObjectCollection =
-                    binding.mapView.mapWindow.map.mapObjects
-                mapObjects.clear()
-                for (searchResult in response.collection.children) {
-                    val resultLocation = searchResult.obj!!.geometry[0].point
-                    if (resultLocation != null) {
-                        val cameraPosition = CameraPosition(resultLocation, 16.0f, 0.0f, 0.0f)
-                        binding.mapView.mapWindow.map.move(cameraPosition)
-                        mapObjects.addPlacemark { placemark: PlacemarkMapObject ->
-                            placemark.geometry = resultLocation
-                            placemark.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.ic_pin))
-                        }
-
-                        return
-                    }
+        viewModel.institute.observe(viewLifecycleOwner) { institute ->
+            binding.apply {
+                ivPoster.load(institute.img)
+                tvTitle.text = institute.name
+                tvDescription.text = institute.description
+                tvWebsite.text = institute.website
+                tvAddress.text = "Адрес: ${institute.address}"
+                setupDescriptionToggle()
+                tvWebsite.setOnClickListener {
+                    (activity as? MainActivity)?.addFragment(WebViewFragment(), bundleOf("url" to institute.website))
+                }
+            }
+            if (!institute.specialities.isNullOrEmpty()) {
+                binding.hsvTable.visibility = View.VISIBLE
+                for (s in institute.specialities) {
+                    binding.table.addView(createRow(s.name, s.budget, s.paid))
                 }
             }
 
-            override fun onSearchError(p0: com.yandex.runtime.Error) {
-                Toast.makeText(requireContext(), "Problem loading the map...", Toast.LENGTH_SHORT).show()
+            val searchOptions = SearchOptions().apply {
+                searchTypes = SearchType.GEO.value
+                resultPageSize = 32
             }
-        }
 
-        val session = searchManager.submit(
-            viewModel.institute.value?.city ?: "",
-            VisibleRegionUtils.toPolygon(binding.mapView.mapWindow.map.visibleRegion),
-            searchOptions,
-            searchSessionListener,
-        )
+            val searchSessionListener = object : SearchListener {
+                override fun onSearchResponse(response: Response) {
+                    val mapObjects: MapObjectCollection =
+                        binding.mapView.mapWindow.map.mapObjects
+                    mapObjects.clear()
+                    for (searchResult in response.collection.children) {
+                        val resultLocation = searchResult.obj!!.geometry[0].point
+                        if (resultLocation != null) {
+                            val cameraPosition = CameraPosition(resultLocation, 16.0f, 0.0f, 0.0f)
+                            binding.mapView.mapWindow.map.move(cameraPosition)
+                            mapObjects.addPlacemark { placemark: PlacemarkMapObject ->
+                                placemark.geometry = resultLocation
+                                placemark.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.ic_pin))
+                            }
+                            return
+                        }
+                    }
+                }
+
+                override fun onSearchError(error: com.yandex.runtime.Error) {
+                    Toast.makeText(requireContext(), "Problem loading the map...", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            searchManager.submit(
+                institute.address!!,
+                VisibleRegionUtils.toPolygon(binding.mapView.mapWindow.map.visibleRegion),
+                searchOptions,
+                searchSessionListener
+            )
+        }
     }
 
     private fun setupDescriptionToggle() {
