@@ -22,8 +22,6 @@ class ContentViewModel @Inject constructor(
 
     private val _data = MutableLiveData<List<Institute>>()
     val data: LiveData<List<Institute>> = _data
-
-    //create data class to manage in which case was an error
     val showErrorButton = MutableLiveData(false)
     val isLoading = MutableLiveData(false)
     val tab = MutableLiveData(0)
@@ -105,8 +103,8 @@ class ContentViewModel @Inject constructor(
             val currentData = _data.value.orEmpty()
             val filteredList = currentData.map { institute ->
                 institute.copy(specialities = institute.specialities?.filter { speciality ->
-                    val budget = speciality.budget?.toIntOrNull()
-                    val paid = speciality.paid?.toIntOrNull()
+                    val budget = speciality.budget.toIntOrNull()
+                    val paid = speciality.paid.toIntOrNull()
                     (budget != null && budget <= score) || (paid != null && paid <= score)
                 })
             }.filter { it.specialities?.isNotEmpty() == true }
