@@ -9,8 +9,8 @@ data class Institute(
     val name:String,
     @SerializedName("description")
     val description: String?,
-    @SerializedName("city")
-    val city: String,
+    @SerializedName("address")
+    val address: String?,
     @SerializedName("img")
     val img: String?,
     @SerializedName("logo")
@@ -21,6 +21,8 @@ data class Institute(
     val shortName: String,
     @SerializedName("type")
     val type: String,
+    @SerializedName("website")
+    val website: String?,
 )
 
 data class Specialty(

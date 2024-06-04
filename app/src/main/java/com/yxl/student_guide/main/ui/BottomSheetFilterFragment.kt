@@ -32,7 +32,7 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeRadioStates()
-
+        var score = 0
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 binding.rbCity.id -> {
@@ -42,10 +42,20 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
             }
         }
 
+        viewModel.score.observe(viewLifecycleOwner){
+            score = it
+        }
+
         binding.bApply.setOnClickListener {
-            if(binding.rbCity.isChecked){
-                viewModel.spinnerCitiesState.value = binding.sCities.selectedItemPosition
-                viewModel.filterInstitutes(binding.sCities.selectedItem.toString())
+            when {
+                binding.rbCity.isChecked -> {
+                    viewModel.spinnerCitiesState.value = binding.sCities.selectedItemPosition
+                    viewModel.filterByName(binding.sCities.selectedItem.toString())
+                }
+                binding.rbScore.isChecked -> {
+                    viewModel.rbScoreState.value = true
+                    viewModel.filterByScore(score)
+                }
             }
             dismiss()
         }
@@ -53,6 +63,7 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
 
         binding.bCancel.setOnClickListener {
             viewModel.spinnerCitiesState.value = null
+            viewModel.rbScoreState.value = false
             viewModel.getData()
             dismiss()
         }
@@ -65,6 +76,12 @@ class BottomSheetFilterFragment : BottomSheetDialogFragment() {
             if(it != null){
                 binding.rbCity.isChecked = true
                 binding.sCities.setSelection(it)
+            }
+            binding.bCancel.isEnabled = it != null
+        }
+        viewModel.rbScoreState.observe(viewLifecycleOwner){
+            if(it != null){
+                binding.rbScore.isChecked = it
             }
             binding.bCancel.isEnabled = it != null
         }

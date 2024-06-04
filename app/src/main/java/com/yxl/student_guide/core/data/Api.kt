@@ -19,6 +19,6 @@ interface Api {
     suspend fun getCollegeInfo(@Path("id") id: Int): Response<Institute>
 
     companion object {
-        const val BASE_URL = "my_api"
+        const val BASE_URL = ""
     }
 }

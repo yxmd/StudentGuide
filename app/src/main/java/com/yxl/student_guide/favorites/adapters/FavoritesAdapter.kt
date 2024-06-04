@@ -9,6 +9,7 @@ import coil.decode.SvgDecoder
 import coil.load
 import com.yxl.student_guide.core.data.Institute
 import com.yxl.student_guide.databinding.ItemInstituteBinding
+import com.yxl.student_guide.favorites.data.InstituteFavorite
 
 class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
 
@@ -16,7 +17,7 @@ class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemInstituteBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(institute: Institute){
+        fun bind(institute: InstituteFavorite){
             binding.apply {
                 if(institute.img != null ){
                     ivPoster.load(institute.img)
@@ -52,12 +53,12 @@ class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
         return differ.currentList.size
     }
 
-    private val differCallBack = object : DiffUtil.ItemCallback<Institute>(){
-        override fun areItemsTheSame(oldItem: Institute, newItem: Institute): Boolean {
+    private val differCallBack = object : DiffUtil.ItemCallback<InstituteFavorite>(){
+        override fun areItemsTheSame(oldItem: InstituteFavorite, newItem: InstituteFavorite): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Institute, newItem: Institute): Boolean {
+        override fun areContentsTheSame(oldItem: InstituteFavorite, newItem: InstituteFavorite): Boolean {
             return oldItem == newItem
         }
     }

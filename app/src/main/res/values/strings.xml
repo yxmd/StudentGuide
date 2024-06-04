@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Справочник абитуриента</string>
-    <string name="filter">filter</string>
+    <string name="filter">Фильтр</string>
     <string name="retry">Попробовать снова</string>
     <string name="enter_all_lines">Заполните все поля</string>
     <string name="add_institute_to_fav">Добавьте учебное заведение длительным нажатием по нему</string>
